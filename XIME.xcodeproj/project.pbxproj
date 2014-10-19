@@ -368,6 +368,7 @@
 		C162898D19F2ADA800F3289A /* Main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 		C19AE36319F3E73300592E35 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		C19AE36419F3E73300592E35 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C19AE68A19F43F1100592E35 /* keysymdef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keysymdef.h; sourceTree = "<group>"; };
 		C1FE668019F24206008E76C5 /* XIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1FE669619F24206008E76C5 /* XIMETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XIMETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1FE669C19F24206008E76C5 /* XIMETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XIMETests.m; sourceTree = "<group>"; };
@@ -408,6 +409,7 @@
 		C13DA2D119F2EAD8004B2348 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				C19AE68A19F43F1100592E35 /* keysymdef.h */,
 				C13DA2D219F2EAD8004B2348 /* rime */,
 				C13DA33219F2EAD8004B2348 /* rime_api.h */,
 				C13DA33319F2EAD8004B2348 /* rime_levers_api.h */,

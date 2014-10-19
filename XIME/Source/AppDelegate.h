@@ -6,13 +6,10 @@
 //  Copyright (c) 2014 Stackia. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "RimeNotificationHandler.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (weak) IBOutlet NSApplication *owner;
-@property (weak) IBOutlet NSObject *app;
 @property (weak) IBOutlet RimeNotificationHandler *rimeNotificationHandler;
 
 @end

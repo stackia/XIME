@@ -4,17 +4,15 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6246"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application">
             <connections>
-                <outlet property="delegate" destination="bqa-9R-ZrX" id="PMB-YB-Ynl"/>
+                <outlet property="delegate" destination="bqa-9R-ZrX" id="XbV-bS-Ho9"/>
             </connections>
         </customObject>
-        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="bqa-9R-ZrX" customClass="AppDelegate">
             <connections>
-                <outlet property="app" destination="-3" id="rY0-QW-ows"/>
-                <outlet property="owner" destination="-2" id="kUP-HN-zPE"/>
                 <outlet property="rimeNotificationHandler" destination="8bQ-Zk-Nhc" id="YFf-V8-V2m"/>
             </connections>
         </customObject>

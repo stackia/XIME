@@ -7,7 +7,10 @@
 //
 
 #import <InputMethodKit/InputMethodKit.h>
+#import "RimeWrapper.h"
 
-@interface InputController : IMKInputController
+@interface InputController : IMKInputController {
+    RimeSessionId rimeSessionId_;
+}
 
 @end

@@ -47,6 +47,7 @@
 	<key>tsInputMethodCharacterRepertoireKey</key>
 	<array>
 		<string>Hans</string>
+		<string>Hant</string>
 	</array>
 	<key>tsInputMethodIconFileKey</key>
 	<string>XIME_Icon.tiff</string>

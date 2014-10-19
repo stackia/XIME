@@ -9,6 +9,11 @@
 #ifndef XIME_XIME_pch
 #define XIME_XIME_pch
 
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
 #define kXIMEUserDataDirectoryKey @"XIMEUserDataDirectory"
 
 #endif

@@ -1,0 +1,14 @@
+//
+//  XIME.pch
+//  XIME
+//
+//  Created by Stackia <jsq2627@gmail.com> on 10/19/14.
+//  Copyright (c) 2014 Stackia. All rights reserved.
+//
+
+#ifndef XIME_XIME_pch
+#define XIME_XIME_pch
+
+#define kXIMEUserDataDirectoryKey @"XIMEUserDataDirectory"
+
+#endif

@@ -64,8 +64,6 @@
 		C13DA3D219F30F20004B2348 /* zyenpheng.dict.yaml in Copy Preset Files */ = {isa = PBXBuildFile; fileRef = C13DA36F19F30EAA004B2348 /* zyenpheng.dict.yaml */; };
 		C13DA3D319F30F20004B2348 /* zyenpheng.schema.yaml in Copy Preset Files */ = {isa = PBXBuildFile; fileRef = C13DA37019F30EAA004B2348 /* zyenpheng.schema.yaml */; };
 		C13DA3D419F30F20004B2348 /* symbols.yaml in Copy Preset Files */ = {isa = PBXBuildFile; fileRef = C13DA37119F30EAA004B2348 /* symbols.yaml */; };
-		C15006EB19F3CB9F00CA3C13 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C15006EA19F3CB9F00CA3C13 /* README.md */; };
-		C15006ED19F3D42800CA3C13 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = C15006EC19F3D42800CA3C13 /* LICENSE.md */; };
 		C162898E19F2ADA800F3289A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C162897F19F2ADA800F3289A /* Images.xcassets */; };
 		C162898F19F2ADA800F3289A /* XIME_Icon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C162898019F2ADA800F3289A /* XIME_Icon.tiff */; };
 		C162899019F2ADA800F3289A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C162898319F2ADA800F3289A /* AppDelegate.m */; };
@@ -74,8 +72,24 @@
 		C162899319F2ADA800F3289A /* RimeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = C162898919F2ADA800F3289A /* RimeWrapper.m */; };
 		C162899519F2ADA800F3289A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C162898C19F2ADA800F3289A /* main.m */; };
 		C162899619F2ADA800F3289A /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = C162898D19F2ADA800F3289A /* Main.xib */; };
+		C19AE36519F3E73300592E35 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = C19AE36319F3E73300592E35 /* LICENSE.md */; };
+		C19AE36619F3E73300592E35 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C19AE36419F3E73300592E35 /* README.md */; };
 		C1FE669D19F24206008E76C5 /* XIMETests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE669C19F24206008E76C5 /* XIMETests.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		C19AE36719F3E75900592E35 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.md";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			name = "Ignore Markdown files";
+			outputFiles = (
+			);
+			script = "";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		C1FE669719F24206008E76C5 /* PBXContainerItemProxy */ = {
@@ -338,8 +352,6 @@
 		C13DA36F19F30EAA004B2348 /* zyenpheng.dict.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zyenpheng.dict.yaml; sourceTree = "<group>"; };
 		C13DA37019F30EAA004B2348 /* zyenpheng.schema.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zyenpheng.schema.yaml; sourceTree = "<group>"; };
 		C13DA37119F30EAA004B2348 /* symbols.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbols.yaml; sourceTree = "<group>"; };
-		C15006EA19F3CB9F00CA3C13 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		C15006EC19F3D42800CA3C13 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		C162897A19F2AD6000F3289A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C162897F19F2ADA800F3289A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C162898019F2ADA800F3289A /* XIME_Icon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = XIME_Icon.tiff; sourceTree = "<group>"; };
@@ -354,6 +366,8 @@
 		C162898B19F2ADA800F3289A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C162898C19F2ADA800F3289A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C162898D19F2ADA800F3289A /* Main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
+		C19AE36319F3E73300592E35 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		C19AE36419F3E73300592E35 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C1FE668019F24206008E76C5 /* XIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1FE669619F24206008E76C5 /* XIMETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XIMETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1FE669C19F24206008E76C5 /* XIMETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XIMETests.m; sourceTree = "<group>"; };
@@ -678,8 +692,8 @@
 		C1FE667719F24206008E76C5 = {
 			isa = PBXGroup;
 			children = (
-				C15006EC19F3D42800CA3C13 /* LICENSE.md */,
-				C15006EA19F3CB9F00CA3C13 /* README.md */,
+				C19AE36319F3E73300592E35 /* LICENSE.md */,
+				C19AE36419F3E73300592E35 /* README.md */,
 				C13DA2BF19F2CD3A004B2348 /* Executables */,
 				C1FE668219F24206008E76C5 /* XIME */,
 				C1FE669919F24206008E76C5 /* XIMETests */,
@@ -732,6 +746,7 @@
 				C13DA3DE19F31359004B2348 /* Copy Library Files */,
 			);
 			buildRules = (
+				C19AE36719F3E75900592E35 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -823,11 +838,11 @@
 				C162899519F2ADA800F3289A /* main.m in Sources */,
 				C162899119F2ADA800F3289A /* IMKServer+SharedInstance.m in Sources */,
 				C162899019F2ADA800F3289A /* AppDelegate.m in Sources */,
-				C15006EB19F3CB9F00CA3C13 /* README.md in Sources */,
-				C15006ED19F3D42800CA3C13 /* LICENSE.md in Sources */,
 				C162899319F2ADA800F3289A /* RimeWrapper.m in Sources */,
 				C11CE9E719F3A94400B57972 /* RimeNotificationHandler.m in Sources */,
 				C162899219F2ADA800F3289A /* InputController.m in Sources */,
+				C19AE36619F3E73300592E35 /* README.md in Sources */,
+				C19AE36519F3E73300592E35 /* LICENSE.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

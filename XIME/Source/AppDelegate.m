@@ -25,8 +25,7 @@
     }
     NSLog(@"IMKServer created.");
     
-    // Setup Rime notification handler
-    [self setRimeNotificationHandler:[[RimeNotificationHandler alloc] init]];
+    // Set Rime notification handler
     [[RimeWrapper sharedWrapper] setDelegate:[self rimeNotificationHandler]];
     
     // Start Rime service

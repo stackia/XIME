@@ -1,5 +1,5 @@
 # XIME Input Method Editor
-### - Yet another Rime Frontend on Mac OS X
+### - Yet another Rime Frontend for Mac OS X
 
 ***XIME is still under heavy development and has not fully implemented the following features, and even may completely not work at all. Please fell free to contribute to the project and join our discussion.***
 

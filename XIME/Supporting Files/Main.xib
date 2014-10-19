@@ -15,7 +15,9 @@
             <connections>
                 <outlet property="app" destination="-3" id="rY0-QW-ows"/>
                 <outlet property="owner" destination="-2" id="kUP-HN-zPE"/>
+                <outlet property="rimeNotificationHandler" destination="8bQ-Zk-Nhc" id="YFf-V8-V2m"/>
             </connections>
         </customObject>
+        <customObject id="8bQ-Zk-Nhc" customClass="RimeNotificationHandler"/>
     </objects>
 </document>

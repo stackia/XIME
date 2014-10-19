@@ -13,8 +13,7 @@
 
 @property (weak) IBOutlet NSApplication *owner;
 @property (weak) IBOutlet NSObject *app;
-
-@property (nonatomic, strong) RimeNotificationHandler *rimeNotificationHandler;
+@property (weak) IBOutlet RimeNotificationHandler *rimeNotificationHandler;
 
 @end
 

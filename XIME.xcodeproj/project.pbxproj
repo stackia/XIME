@@ -746,6 +746,7 @@
 				C13DA3A319F30ECE004B2348 /* Copy Preset Files */,
 				C13DA3D519F30F27004B2348 /* Copy openCC Files */,
 				C13DA3DE19F31359004B2348 /* Copy Library Files */,
+				C1A26E2619F4D0EB007BF527 /* Auto Increase Build Number */,
 			);
 			buildRules = (
 				C19AE36719F3E75900592E35 /* PBXBuildRule */,
@@ -831,6 +832,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C1A26E2619F4D0EB007BF527 /* Auto Increase Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Auto Increase Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C1FE667C19F24206008E76C5 /* Sources */ = {

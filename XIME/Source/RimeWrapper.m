@@ -96,7 +96,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     vXIMETraits.user_data_dir = [userDataDir UTF8String];
     vXIMETraits.distribution_name = "XIME";
     vXIMETraits.distribution_code_name = "XIME";
-    vXIMETraits.distribution_version = [[[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString *)kCFBundleVersionKey] UTF8String];
+    vXIMETraits.distribution_version = [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] UTF8String];
     vXIMETraits.app_name = "rime.xime";
     
     // Set Rime notification handler

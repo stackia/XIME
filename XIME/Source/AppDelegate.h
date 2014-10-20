@@ -6,11 +6,8 @@
 //  Copyright (c) 2014 Stackia. All rights reserved.
 //
 
-#import "RimeNotificationHandler.h"
+#import "RimeWrapper.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
-
-@property (weak) IBOutlet RimeNotificationHandler *rimeNotificationHandler;
+@interface AppDelegate : NSObject <NSApplicationDelegate, RimeNotificationDelegate>
 
 @end
-

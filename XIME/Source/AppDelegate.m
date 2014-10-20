@@ -16,6 +16,8 @@
 
 @implementation AppDelegate
 
+#pragma mark Application Delegate
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
     // Create IMKServer
@@ -26,10 +28,10 @@
     NSLog(@"IMKServer created.");
     
     // Set Rime notification handler
-    [[RimeWrapper sharedWrapper] setDelegate:[self rimeNotificationHandler]];
+    [RimeWrapper setNotificationDelegate:self];
     
     // Start Rime service
-    if ([[RimeWrapper sharedWrapper] startService]) {
+    if ([RimeWrapper startService]) {
         NSLog(@"Rime service started.");
     } else {
         NSLog(@"Failed to start Rime service.");
@@ -37,8 +39,30 @@
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    [[RimeWrapper sharedWrapper] stopService];
+    [RimeWrapper stopService];
     NSLog(@"IMKServer destroyed");
+}
+
+#pragma mark Rime Notification Delegate
+
+- (void)onDeploymentStarted {
+    NSLog(@"Deployment started.");
+}
+
+- (void)onDeploymentSuccessful {
+    NSLog(@"Deployment successful.");
+}
+
+- (void)onDeploymentFailed {
+    NSLog(@"Deployment failed.");
+}
+
+- (void)onSchemaChangedWithNewSchema:(NSString *)schema {
+    NSLog(@"Schema changed to: %@", schema);
+}
+
+- (void)onOptionChangedWithOption:(RimeOption)option value:(BOOL)value {
+    NSLog(@"Option changed: %lu, %d", option, value);
 }
 
 @end

@@ -9,42 +9,42 @@
 #import "RimeWrapper.h"
 #include "rime_api.h"
 
+static id<RimeNotificationDelegate> notificationDelegate_ = nil;
+
 void notificationHandler(void* context_object, RimeSessionId session_id, const char* message_type, const char* message_value) {
     NSLog(@"Rime notification from session: %lu, type: %s, value: %s", session_id, message_type, message_value);
     
-    id<RimeNotificationDelegate> notificationDelegate = [[RimeWrapper sharedWrapper] delegate];
-    
-    if (notificationDelegate == nil) {
+    if (notificationDelegate_ == nil) {
         return;
     }
     
     if (!strcmp(message_type, "deploy")) { // Deployment state change
         
         if (!strcmp(message_value, "start")) {
-            if ([notificationDelegate respondsToSelector:@selector(onDeploymentStarted)]) {
-                [notificationDelegate onDeploymentStarted];
+            if ([notificationDelegate_ respondsToSelector:@selector(onDeploymentStarted)]) {
+                [notificationDelegate_ onDeploymentStarted];
             }
         }
         else if (!strcmp(message_value, "success")) {
-            if ([notificationDelegate respondsToSelector:@selector(onDeploymentSuccessful)]) {
-                [notificationDelegate onDeploymentSuccessful];
+            if ([notificationDelegate_ respondsToSelector:@selector(onDeploymentSuccessful)]) {
+                [notificationDelegate_ onDeploymentSuccessful];
             }
         }
         else if (!strcmp(message_value, "failure")) {
-            if ([notificationDelegate respondsToSelector:@selector(onDeploymentFailed)]) {
-                [notificationDelegate onDeploymentFailed];
+            if ([notificationDelegate_ respondsToSelector:@selector(onDeploymentFailed)]) {
+                [notificationDelegate_ onDeploymentFailed];
             }
         }
         
-    } else if (!strcmp(message_type, "schema") && [notificationDelegate respondsToSelector:@selector(onSchemaChangedWithNewSchema:)]) { // Schema change
+    } else if (!strcmp(message_type, "schema") && [notificationDelegate_ respondsToSelector:@selector(onSchemaChangedWithNewSchema:)]) { // Schema change
         
         const char* schema_name = strchr(message_value, '/');
         if (schema_name) {
             ++schema_name;
-            [notificationDelegate onSchemaChangedWithNewSchema:[NSString stringWithFormat:@"%s", schema_name]];
+            [notificationDelegate_ onSchemaChangedWithNewSchema:[NSString stringWithFormat:@"%s", schema_name]];
         }
         
-    } else if (!strcmp(message_type, "option") && [notificationDelegate respondsToSelector:@selector(onOptionChangedWithOption:value:)]) { // Option change
+    } else if (!strcmp(message_type, "option") && [notificationDelegate_ respondsToSelector:@selector(onOptionChangedWithOption:value:)]) { // Option change
         
         RimeOption option;
         BOOL value = (message_value[0] != '!');;
@@ -65,23 +65,18 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
             option = RimeOptionExtendedCharset;
         }
         
-        [notificationDelegate onOptionChangedWithOption:option value:value];
+        [notificationDelegate_ onOptionChangedWithOption:option value:value];
         
     }
 }
 
 @implementation RimeWrapper
 
-+ (RimeWrapper *)sharedWrapper {
-    static dispatch_once_t onceToken;
-    static RimeWrapper *wrapper;
-    dispatch_once(&onceToken, ^{
-        wrapper = [[RimeWrapper alloc] init];
-    });
-    return wrapper;
++ (void)setNotificationDelegate:(id<RimeNotificationDelegate>)delegate {
+    notificationDelegate_ = delegate;
 }
 
-- (BOOL)startService {
++ (BOOL)startService {
     NSString *userDataDir = [[[[NSBundle mainBundle] infoDictionary] objectForKey:kXIMEUserDataDirectoryKey] stringByStandardizingPath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:userDataDir]) {
@@ -114,12 +109,12 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     return YES;
 }
 
-- (void)stopService {
++ (void)stopService {
     RimeCleanupAllSessions();
     RimeFinalize();
 }
 
-- (void)deployWithFastMode:(BOOL)fastMode {
++ (void)deployWithFastMode:(BOOL)fastMode {
     if (fastMode) {
         // If default.yaml config_version is changed, schedule a maintenance
         RimeStartMaintenance(False); // full_check = False to check config_version first, return True if a maintenance is triggered
@@ -129,7 +124,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     }
 }
 
-- (void)redeployWithFastMode:(BOOL)fastMode {
++ (void)redeployWithFastMode:(BOOL)fastMode {
     // Restart service
     RimeFinalize();
     RimeInitialize(NULL);
@@ -138,23 +133,23 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     [self deployWithFastMode:fastMode];
 }
 
-- (RimeSessionId)createSession {
++ (RimeSessionId)createSession {
     return RimeCreateSession();
 }
 
-- (void)destroySession:(RimeSessionId)sessionId {
++ (void)destroySession:(RimeSessionId)sessionId {
     RimeDestroySession(sessionId);
 }
 
-- (BOOL)isSessionAlive:(RimeSessionId)sessionId {
++ (BOOL)isSessionAlive:(RimeSessionId)sessionId {
     return RimeFindSession(sessionId) == True;
 }
 
-- (BOOL)handleKeyForSession:(RimeSessionId)sessionId rimeKeyCode:(int)keyCode rimeModifier:(int)modifier {
++ (BOOL)handleKeyForSession:(RimeSessionId)sessionId rimeKeyCode:(int)keyCode rimeModifier:(int)modifier {
     return RimeProcessKey(sessionId, keyCode, modifier);
 }
 
-- (BOOL)handleKeyForSession:(RimeSessionId)sessionId vOSXkeyCode:(int)keyCode keyChar:(char)keyChar vOSXModifier:(int)modifier {
++ (BOOL)handleKeyForSession:(RimeSessionId)sessionId vOSXkeyCode:(int)keyCode keyChar:(char)keyChar vOSXModifier:(int)modifier {
     BOOL shift = modifier & NSShiftKeyMask;
     BOOL capsLock = modifier & NSAlphaShiftKeyMask;
     int rimeKeyCode = [self rimeKeyCodeForOSXKeyCode:keyCode keyChar:keyCode shift:shift capsLock:capsLock];
@@ -162,7 +157,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     return RimeProcessKey(sessionId, rimeKeyCode, rimeModifier);
 }
 
-- (int)rimeKeyCodeForOSXKeyCode:(int)keyCode keyChar:(char)keyChar shift:(BOOL)shift capsLock:(BOOL)capsLock {
++ (int)rimeKeyCodeForOSXKeyCode:(int)keyCode keyChar:(char)keyChar shift:(BOOL)shift capsLock:(BOOL)capsLock {
     int ret = 0;
     
     switch (keyCode) {
@@ -251,7 +246,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     return ret;
 }
 
-- (int)rimeModifierForOSXModifier:(int)modifier {
++ (int)rimeModifierForOSXModifier:(int)modifier {
     int ret = 0;
     
     if (modifier & NSAlphaShiftKeyMask)

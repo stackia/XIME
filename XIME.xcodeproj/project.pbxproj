@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C11CE9E719F3A94400B57972 /* RimeNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C11CE9E619F3A94400B57972 /* RimeNotificationHandler.m */; };
 		C11CE9E919F3AD6F00B57972 /* librime.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C11CE9E819F3AD6F00B57972 /* librime.1.dylib */; };
 		C11CE9EA19F3AD8D00B57972 /* librime.1.dylib in Copy Library Files */ = {isa = PBXBuildFile; fileRef = C11CE9E819F3AD6F00B57972 /* librime.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C13DA2CA19F2CD4B004B2348 /* rime_api_console in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = C13DA2C019F2CD3A004B2348 /* rime_api_console */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -200,8 +199,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C11CE9E519F3A94400B57972 /* RimeNotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RimeNotificationHandler.h; sourceTree = "<group>"; };
-		C11CE9E619F3A94400B57972 /* RimeNotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RimeNotificationHandler.m; sourceTree = "<group>"; };
 		C11CE9E819F3AD6F00B57972 /* librime.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = librime.1.dylib; sourceTree = "<group>"; };
 		C13DA2C019F2CD3A004B2348 /* rime_api_console */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = rime_api_console; sourceTree = "<group>"; };
 		C13DA2C119F2CD3A004B2348 /* rime_console */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = rime_console; sourceTree = "<group>"; };
@@ -665,8 +662,6 @@
 				C162898719F2ADA800F3289A /* InputController.m */,
 				C162898819F2ADA800F3289A /* RimeWrapper.h */,
 				C162898919F2ADA800F3289A /* RimeWrapper.m */,
-				C11CE9E519F3A94400B57972 /* RimeNotificationHandler.h */,
-				C11CE9E619F3A94400B57972 /* RimeNotificationHandler.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -859,7 +854,6 @@
 				C162899119F2ADA800F3289A /* IMKServer+SharedInstance.m in Sources */,
 				C162899019F2ADA800F3289A /* AppDelegate.m in Sources */,
 				C162899319F2ADA800F3289A /* RimeWrapper.m in Sources */,
-				C11CE9E719F3A94400B57972 /* RimeNotificationHandler.m in Sources */,
 				C162899219F2ADA800F3289A /* InputController.m in Sources */,
 				C19AE36619F3E73300592E35 /* README.md in Sources */,
 				C19AE36519F3E73300592E35 /* LICENSE.md in Sources */,

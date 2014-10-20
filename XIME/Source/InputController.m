@@ -20,8 +20,8 @@
     NSLog(@"Event: %lu", [event type]);
     
     // Create Rime session if it doesn't exist
-    if (![[RimeWrapper sharedWrapper] isSessionAlive:rimeSessionId_]) {
-        rimeSessionId_ = [[RimeWrapper sharedWrapper] createSession];
+    if (![RimeWrapper isSessionAlive:rimeSessionId_]) {
+        rimeSessionId_ = [RimeWrapper createSession];
         NSLog(@"Rime session created: %lu", rimeSessionId_);
     }
     
@@ -34,7 +34,7 @@
         
         int keyCode = [event keyCode];
         char keyChar = [[event charactersIgnoringModifiers] UTF8String][0];
-        [[RimeWrapper sharedWrapper] handleKeyForSession:rimeSessionId_ vOSXkeyCode:keyCode keyChar:keyChar vOSXModifier:modifierFlags];
+        [RimeWrapper handleKeyForSession:rimeSessionId_ vOSXkeyCode:keyCode keyChar:keyChar vOSXModifier:modifierFlags];
         
     } else if (eventType == NSFlagsChanged) { // Modifier flag changed event
         
@@ -44,7 +44,7 @@
         NSEventModifierFlags flagDelta = lastModifierFlags ^ modifierFlags;
         lastModifierFlags = modifierFlags;
         
-        int rimeModifier = [[RimeWrapper sharedWrapper] rimeModifierForOSXModifier:modifierFlags];
+        int rimeModifier = [RimeWrapper rimeModifierForOSXModifier:modifierFlags];
         
         if (flagDelta & NSAlphaShiftKeyMask)
         {
@@ -52,31 +52,31 @@
             // while NSFlagsChanged event has the flag changed already.
             // so it is necessary to revert kLockMask.
             rimeModifier ^= kLockMask;
-            [[RimeWrapper sharedWrapper] handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Caps_Lock rimeModifier:rimeModifier];
+            [RimeWrapper handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Caps_Lock rimeModifier:rimeModifier];
         }
         
         if (flagDelta & NSShiftKeyMask)
         {
             int releaseMask = modifierFlags & NSShiftKeyMask ? 0 : kReleaseMask;
-            [[RimeWrapper sharedWrapper] handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Shift_L rimeModifier:rimeModifier | releaseMask];
+            [RimeWrapper handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Shift_L rimeModifier:rimeModifier | releaseMask];
         }
         
         if (flagDelta & NSControlKeyMask)
         {
             int releaseMask = modifierFlags & NSControlKeyMask ? 0 : kReleaseMask;
-            [[RimeWrapper sharedWrapper] handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Control_L rimeModifier:rimeModifier | releaseMask];
+            [RimeWrapper handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Control_L rimeModifier:rimeModifier | releaseMask];
         }
         
         if (flagDelta & NSAlternateKeyMask)
         {
             int releaseMask = modifierFlags & NSAlternateKeyMask ? 0 : kReleaseMask;
-            [[RimeWrapper sharedWrapper] handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Alt_L rimeModifier:rimeModifier | releaseMask];
+            [RimeWrapper handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Alt_L rimeModifier:rimeModifier | releaseMask];
         }
         
         if (flagDelta & NSCommandKeyMask)
         {
             int releaseMask = modifierFlags & NSCommandKeyMask ? 0 : kReleaseMask;
-            [[RimeWrapper sharedWrapper] handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Super_L rimeModifier:rimeModifier | releaseMask];
+            [RimeWrapper handleKeyForSession:rimeSessionId_ rimeKeyCode:XK_Super_L rimeModifier:rimeModifier | releaseMask];
             // Do not update UI when using Command key
         }
         
@@ -91,8 +91,8 @@
 
 - (void)dealloc {
     // Destroy Rime session
-    if ([[RimeWrapper sharedWrapper] isSessionAlive:rimeSessionId_]) {
-        [[RimeWrapper sharedWrapper] destroySession:rimeSessionId_];
+    if ([RimeWrapper isSessionAlive:rimeSessionId_]) {
+        [RimeWrapper destroySession:rimeSessionId_];
     }
     NSLog(@"Rime session destroyed: %lu", rimeSessionId_);
 }

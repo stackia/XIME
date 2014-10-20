@@ -9,10 +9,10 @@
 #import "InputController.h"
 
 @implementation InputController {
-    id<IMKTextInput> client_; // Current controller's input client
     RimeSessionId rimeSessionId_; // Holds corresponding Rime session id of this input controller
     BOOL committed_; // Indicate whether XIME has committed composed text
-    NSString *composedText_;
+    NSMutableAttributedString *composedText_;
+    int cursorPosition_; // Cursor position in the composed text
 }
 
 #pragma mark IMKServerInput Delegate
@@ -38,14 +38,20 @@
         
         NSLog(@"[KeyDown] Key char: '%@', key code: %hu, modifier: %lu", [event characters], [event keyCode], modifierFlags);
         
-        char keyChar = [[event characters] UTF8String][0]; // Case sensitive, already handled correctly by system
+        if (modifierFlags & NSCommandKeyMask) { // 'Command + <key>' events will also be passed to here. We will ignore them.
+            handled = NO;
+        } else {
+            char keyChar = [[event characters] UTF8String][0]; // Case sensitive, already handled correctly by system
         
-        int rimeKeyCode = [RimeWrapper rimeKeyCodeForKeyChar:keyChar];
-        int rimeModifier = [RimeWrapper rimeModifierForOSXModifier:modifierFlags];
-        [RimeWrapper inputKeyForSession:rimeSessionId_ rimeKeyCode:rimeKeyCode rimeModifier:rimeModifier];
+            int rimeKeyCode = [RimeWrapper rimeKeyCodeForOSXKeyCode:[event keyCode]];
+            if (!rimeKeyCode) { // If this is not a special keyCode we could recognize, then get keyCode from keyChar.
+                rimeKeyCode = [RimeWrapper rimeKeyCodeForKeyChar:keyChar];
+            }
+            int rimeModifier = [RimeWrapper rimeModifierForOSXModifier:modifierFlags];
+            handled = [RimeWrapper inputKeyForSession:rimeSessionId_ rimeKeyCode:rimeKeyCode rimeModifier:rimeModifier];
         
-        [self syncWithRime];
-        handled = YES; // Accept event
+            [self syncWithRime];
+        }
         
     } else if (eventType == NSFlagsChanged) { // Modifier flags changed event
         
@@ -96,12 +102,21 @@
         
         NSLog(@"[LeftMouseDown]");
         
-        [self commitComposition:self];
+        [self cancelComposition];
         handled = NO; // Pass event down to the responder chain
         
     }
     
     return handled;
+}
+
+- (id)composedString:(id)sender {
+    return composedText_;
+}
+
+- (NSAttributedString *)originalString:(id)sender {
+#pragma mark TODO: Get original string from Rime service
+    return [[NSAttributedString alloc] initWithString:@""];
 }
 
 - (void)commitComposition:(id)sender {
@@ -115,7 +130,7 @@
  * We have to sync data and action between XIME and Rime with the following strategy:
  *
  * Data:
- *  XIME Composed String <-- Rime Context Preedited Text
+ *  XIME Composed Text <-- Rime Context Preedited Text
  *  XIME Candidate Window <-- Rime Context Candidates
  *
  * Action:
@@ -133,18 +148,36 @@
     // Action: XIME Insert Text <-- Rime Commit Composition
     NSString *rimeComposedText = [RimeWrapper consumeComposedTextForSession:rimeSessionId_];
     if (rimeComposedText) { // If there is composed text to consume, we can infer that Rime did commit action
-        [client_ insertText:rimeComposedText replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+        [[self client] insertText:rimeComposedText replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     }
     
-    // Data: XIME Composed String <-- Rime Context Preedited Text
-#pragma mark TODO: XIME Composed String <-- Rime Context Preedited Text
+    XRimeContext *context = [RimeWrapper contextForSession:rimeSessionId_];
+
+    // Data: XIME Composed Text <-- Rime Context Preedited Text
+    XRimeComposition *composition = [context composition];
+    composedText_ = [[NSMutableAttributedString alloc] initWithString:[[context composition] preeditedText]];
+#warning Need UTF-8 fix for cursor position
+    cursorPosition_ = [composition cursorPosition];
+#pragma mark TODO: Add text attribute for converted text and selected raw text
+    [self updateComposition];
     
     // Data: XIME Candidate Window <-- Rime Context Candidates
 #pragma mark TODO: XIME Candidate Window <-- Rime Context Candidates
-    
+    NSArray *candidates = [[context menu] candidates];
+    if ([candidates count] > 0)
+        NSLog(@"Candidates:");
+    int i = 0;
+    for (XRimeCandidate *candidate in candidates) {
+        ++i;
+        NSLog(@"%d: %@, %@", i, [candidate text], [candidate comment]);
+    }
 }
 
 #pragma mark IMKStateSetting Delegate
+
+- (void)deactivateServer:(id)sender {
+    [self cancelComposition];
+}
 
 - (NSUInteger)recognizedEvents:(id)sender {
     return NSKeyDownMask | NSFlagsChangedMask | NSLeftMouseDownMask; // Receive KeyDown/ModifierFlagsChange/LeftMouseDown events
@@ -154,9 +187,12 @@
 
 #pragma mark IMKInputController Override
 
+- (NSRange)selectionRange {
+    return NSMakeRange(cursorPosition_, 0);
+}
+
 - (id)initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)inputClient {
     if (self = [super initWithServer:server delegate:delegate client:inputClient]) {
-        client_ = inputClient;
         rimeSessionId_ = [RimeWrapper createSession]; // Try to create Rime session
         if (rimeSessionId_ ) {
             NSLog(@"Rime session created: %lu", rimeSessionId_);
@@ -165,7 +201,7 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)inputControllerWillClose {
     // Destroy Rime session
     if ([RimeWrapper isSessionAlive:rimeSessionId_]) {
         [RimeWrapper destroySession:rimeSessionId_];

@@ -73,6 +73,7 @@
 		C162899619F2ADA800F3289A /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = C162898D19F2ADA800F3289A /* Main.xib */; };
 		C19AE36519F3E73300592E35 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = C19AE36319F3E73300592E35 /* LICENSE.md */; };
 		C19AE36619F3E73300592E35 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C19AE36419F3E73300592E35 /* README.md */; };
+		C1A26E2B19F561C9007BF527 /* RimeTypeDef.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A26E2A19F561C9007BF527 /* RimeTypeDef.m */; };
 		C1FE669D19F24206008E76C5 /* XIMETests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FE669C19F24206008E76C5 /* XIMETests.m */; };
 /* End PBXBuildFile section */
 
@@ -276,6 +277,7 @@
 		C19AE36419F3E73300592E35 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C19AE68A19F43F1100592E35 /* keysymdef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keysymdef.h; sourceTree = "<group>"; };
 		C1A26E2719F5447B007BF527 /* RimeTypeDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RimeTypeDef.h; sourceTree = "<group>"; };
+		C1A26E2A19F561C9007BF527 /* RimeTypeDef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RimeTypeDef.m; sourceTree = "<group>"; };
 		C1FE668019F24206008E76C5 /* XIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1FE669619F24206008E76C5 /* XIMETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XIMETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1FE669C19F24206008E76C5 /* XIMETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XIMETests.m; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 				C162898819F2ADA800F3289A /* RimeWrapper.h */,
 				C162898919F2ADA800F3289A /* RimeWrapper.m */,
 				C1A26E2719F5447B007BF527 /* RimeTypeDef.h */,
+				C1A26E2A19F561C9007BF527 /* RimeTypeDef.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				C162899319F2ADA800F3289A /* RimeWrapper.m in Sources */,
 				C162899219F2ADA800F3289A /* InputController.m in Sources */,
 				C19AE36619F3E73300592E35 /* README.md in Sources */,
+				C1A26E2B19F561C9007BF527 /* RimeTypeDef.m in Sources */,
 				C19AE36519F3E73300592E35 /* LICENSE.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

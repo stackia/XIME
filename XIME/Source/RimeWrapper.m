@@ -41,7 +41,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
         const char* schema_name = strchr(message_value, '/');
         if (schema_name) {
             ++schema_name;
-            [notificationDelegate_ onSchemaChangedWithNewSchema:[NSString stringWithFormat:@"%s", schema_name]];
+            [notificationDelegate_ onSchemaChangedWithNewSchema:[NSString stringWithFormat:@"%@", [NSString stringWithUTF8String:schema_name]]];
         }
         
     } else if (!strcmp(message_type, "option") && [notificationDelegate_ respondsToSelector:@selector(onOptionChangedWithOption:value:)]) { // Option change
@@ -262,6 +262,53 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
         composedText = [NSString stringWithUTF8String:commit.text];
     }
     return composedText;
+}
+
++ (XRimeContext *)contextForSession:(RimeSessionId)sessiodId {
+    XRimeContext *xCtx;
+    RIME_STRUCT(RimeContext, ctx);
+    if (RimeGetContext(sessiodId, &ctx)) {
+        xCtx = [[XRimeContext alloc] init];
+        if (ctx.commit_text_preview) {
+            [xCtx setCommitTextPreview:[NSString stringWithUTF8String:ctx.commit_text_preview]];
+        }
+        
+        XRimeMenu *xMenu = [[XRimeMenu alloc] init];
+        XRimeComposition * xComp = [[XRimeComposition alloc] init];
+        [xCtx setMenu:xMenu];
+        [xCtx setComposition:xComp];
+        
+        [xMenu setPageSize:ctx.menu.page_size];
+        [xMenu setPageNumber:ctx.menu.page_no];
+        [xMenu setIsLastPage:ctx.menu.is_last_page == True];
+        [xMenu setHighlightedCandidateIndex:ctx.menu.highlighted_candidate_index];
+        if (ctx.menu.select_keys) {
+            [xMenu setSelectKeys:[NSString stringWithUTF8String:ctx.menu.select_keys]];
+        }
+        NSMutableArray *xCandidates = [NSMutableArray array];
+        for (int i = 0; i < ctx.menu.num_candidates; i++) {
+            XRimeCandidate *xCandidate = [[XRimeCandidate alloc] init];
+            if (ctx.menu.candidates[i].text) {
+                [xCandidate setText:[NSString stringWithUTF8String:ctx.menu.candidates[i].text]];
+            }
+            if (ctx.menu.candidates[i].comment) {
+                [xCandidate setText:[NSString stringWithUTF8String:ctx.menu.candidates[i].comment]];
+            }
+            [xCandidates addObject:xCandidate];
+        }
+        [xMenu setCandidates:xCandidates];
+        
+        [xComp setLength:ctx.composition.length];
+        [xComp setCursorPosition:ctx.composition.cursor_pos];
+        [xComp setSelectionStart:ctx.composition.sel_start];
+        [xComp setSelectionEnd:ctx.composition.sel_end];
+        if (ctx.composition.preedit) {
+            [xComp setPreeditedText:[NSString stringWithUTF8String:ctx.composition.preedit]];
+        } else {
+            [xComp setPreeditedText:@""];
+        }
+    }
+    return xCtx;
 }
 
 @end

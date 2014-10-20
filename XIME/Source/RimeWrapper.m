@@ -46,23 +46,23 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
         
     } else if (!strcmp(message_type, "option") && [notificationDelegate_ respondsToSelector:@selector(onOptionChangedWithOption:value:)]) { // Option change
         
-        RimeOption option;
+        XRimeOption option;
         BOOL value = (message_value[0] != '!');;
         
         if (!strcmp(message_value, "ascii_mode") || !strcmp(message_value, "!ascii_mode")) {
-            option = RimeOptionASCIIMode;
+            option = XRimeOptionASCIIMode;
         }
         else if (!strcmp(message_value, "full_shape") || !strcmp(message_value, "!full_shape")) {
-            option = RimeOptionFullShape;
+            option = XRimeOptionFullShape;
         }
         else if (!strcmp(message_value, "ascii_punct") || !strcmp(message_value, "!ascii_punct")) {
-            option = RimeOptionASCIIPunct;
+            option = XRimeOptionASCIIPunct;
         }
         else if (!strcmp(message_value, "simplification") || !strcmp(message_value, "!simplification")) {
-            option = RimeOptionSimplification;
+            option = XRimeOptionSimplification;
         }
         else if (!strcmp(message_value, "extended_charset") || !strcmp(message_value, "!extended_charset")) {
-            option = RimeOptionExtendedCharset;
+            option = XRimeOptionExtendedCharset;
         }
         
         [notificationDelegate_ onOptionChangedWithOption:option value:value];
@@ -146,7 +146,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
 }
 
 + (BOOL)inputKeyForSession:(RimeSessionId)sessionId rimeKeyCode:(int)keyCode rimeModifier:(int)modifier {
-    return RimeProcessKey(sessionId, keyCode, keyModifiers);
+    return RimeProcessKey(sessionId, keyCode, modifier) == True;
 }
 
 + (int)rimeKeyCodeForKeyChar:(char)keyChar {
@@ -249,6 +249,19 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     if (modifier & NSCommandKeyMask)
         ret |= kSuperMask;
     return ret;
+}
+
++ (BOOL)commitCompositionForSession:(RimeSessionId)sessionId {
+    return RimeCommitComposition(sessionId) == True;
+}
+
++ (NSString *)consumeComposedTextForSession:(RimeSessionId)sessionId {
+    NSString *composedText;
+    RIME_STRUCT(RimeCommit, commit);
+    if (RimeGetCommit(sessionId, &commit)) {
+        composedText = [NSString stringWithUTF8String:commit.text];
+    }
+    return composedText;
 }
 
 @end

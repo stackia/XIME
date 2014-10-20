@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RimeTypeDef.h"
 
 // Import necessary key codes
 #include "keysymdef.h"
@@ -39,14 +40,6 @@ typedef enum {
     kModifierMask = 0x5f001fff
 } RimeModifier;
 
-typedef enum : NSUInteger {
-    RimeOptionASCIIMode,
-    RimeOptionFullShape,
-    RimeOptionASCIIPunct,
-    RimeOptionSimplification,
-    RimeOptionExtendedCharset,
-} RimeOption;
-
 /// Rime notification protocol, used for receiving Rime notifications.
 @protocol RimeNotificationDelegate <NSObject>
 
@@ -55,7 +48,7 @@ typedef enum : NSUInteger {
 - (void)onDeploymentSuccessful;
 - (void)onDeploymentFailed;
 - (void)onSchemaChangedWithNewSchema:(NSString *)schema;
-- (void)onOptionChangedWithOption:(RimeOption)option value:(BOOL)value;
+- (void)onOptionChangedWithOption:(XRimeOption)option value:(BOOL)value;
 
 @end
 
@@ -96,5 +89,11 @@ typedef enum : NSUInteger {
 
 /// Convert OS X modifier to Rime modifier
 + (int)rimeModifierForOSXModifier:(int)modifier;
+
+/// Commit composition. The composed text can be later consumed by consumeComposedTextForSession:(RimeSessionId)sessionId.
++ (BOOL)commitCompositionForSession:(RimeSessionId)sessionId;
+
+/// Consume composed text. Return nil if there is nothing to consume.
++ (NSString *)consumeComposedTextForSession:(RimeSessionId)sessionId;
 
 @end

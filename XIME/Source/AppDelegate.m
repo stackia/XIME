@@ -60,7 +60,7 @@
     NSLog(@"Schema changed to: %@", schema);
 }
 
-- (void)onOptionChangedWithOption:(RimeOption)option value:(BOOL)value {
+- (void)onOptionChangedWithOption:(XRimeOption)option value:(BOOL)value {
     NSLog(@"Option changed: %lu, %d", option, value);
 }
 

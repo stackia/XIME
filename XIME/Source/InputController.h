@@ -9,8 +9,6 @@
 #import <InputMethodKit/InputMethodKit.h>
 #import "RimeWrapper.h"
 
-@interface InputController : IMKInputController {
-    RimeSessionId rimeSessionId_;
-}
+@interface InputController : IMKInputController
 
 @end

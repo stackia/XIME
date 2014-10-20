@@ -12,14 +12,7 @@
 #include "keysymdef.h"
 #import <Carbon/Carbon.h>
 
-typedef enum : NSUInteger {
-    RimeOptionASCIIMode,
-    RimeOptionFullShape,
-    RimeOptionASCIIPunct,
-    RimeOptionSimplification,
-    RimeOptionExtendedCharset,
-} RimeOption;
-
+// Typedef from Rime API
 typedef uintptr_t RimeSessionId;
 typedef enum {
     kShiftMask    = 1 << 0,
@@ -46,6 +39,15 @@ typedef enum {
     kModifierMask = 0x5f001fff
 } RimeModifier;
 
+typedef enum : NSUInteger {
+    RimeOptionASCIIMode,
+    RimeOptionFullShape,
+    RimeOptionASCIIPunct,
+    RimeOptionSimplification,
+    RimeOptionExtendedCharset,
+} RimeOption;
+
+/// Rime notification protocol, used for receiving Rime notifications.
 @protocol RimeNotificationDelegate <NSObject>
 
 @optional
@@ -65,7 +67,7 @@ typedef enum {
 /// Start Rime service. This will setup notification handler, logging and deployer. And then start the service and perform a fast deployment.
 + (BOOL)startService;
 
-/// Stop Rime service.
+/// Stop Rime service
 + (void)stopService;
 
 /// With fast == YES, Rime will get deployed only when there is a newer version of config. Otherwise it will always get deployed.
@@ -84,13 +86,13 @@ typedef enum {
 + (BOOL)isSessionAlive:(RimeSessionId)sessionId;
 
 /// Process key with Rime key code and modifier
-+ (BOOL)handleKeyForSession:(RimeSessionId)sessionId rimeKeyCode:(int)keyCode rimeModifier:(int)modifier;
++ (BOOL)inputKeyForSession:(RimeSessionId)sessionId rimeKeyCode:(int)keyCode rimeModifier:(int)modifier;
 
-/// Process key with OS X key code and modifier
-+ (BOOL)handleKeyForSession:(RimeSessionId)sessionId vOSXkeyCode:(int)keyCode keyChar:(char)keyChar vOSXModifier:(int)modifier;
+/// Convert a case sensitive character to Rime key code
++ (int)rimeKeyCodeForKeyChar:(char)keyChar;
 
-/// Convert OS X key code to Rime key code
-+ (int)rimeKeyCodeForOSXKeyCode:(int)keyCode keyChar:(char)keyChar shift:(BOOL)shift capsLock:(BOOL)capsLock;
+/// Convert OS X key code to Rime key code. If keyCode is not recognized, return 0.
++ (int)rimeKeyCodeForOSXKeyCode:(int)keyCode;
 
 /// Convert OS X modifier to Rime modifier
 + (int)rimeModifierForOSXModifier:(int)modifier;

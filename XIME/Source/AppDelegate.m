@@ -10,10 +10,6 @@
 #import "IMKServer+SharedInstance.h"
 #import "RimeWrapper.h"
 
-@interface AppDelegate ()
-
-@end
-
 @implementation AppDelegate
 
 #pragma mark Application Delegate
@@ -39,7 +35,10 @@
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    // Stop Rime service
     [RimeWrapper stopService];
+    
+    // Destroy IMKServer
     NSLog(@"IMKServer destroyed");
 }
 

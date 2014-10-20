@@ -145,21 +145,32 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     return RimeFindSession(sessionId) == True;
 }
 
-+ (BOOL)handleKeyForSession:(RimeSessionId)sessionId rimeKeyCode:(int)keyCode rimeModifier:(int)modifier {
-    return RimeProcessKey(sessionId, keyCode, modifier);
++ (BOOL)inputKeyForSession:(RimeSessionId)sessionId rimeKeyCode:(int)keyCode rimeModifier:(int)modifier {
+    return RimeProcessKey(sessionId, keyCode, keyModifiers);
 }
 
-+ (BOOL)handleKeyForSession:(RimeSessionId)sessionId vOSXkeyCode:(int)keyCode keyChar:(char)keyChar vOSXModifier:(int)modifier {
-    BOOL shift = modifier & NSShiftKeyMask;
-    BOOL capsLock = modifier & NSAlphaShiftKeyMask;
-    int rimeKeyCode = [self rimeKeyCodeForOSXKeyCode:keyCode keyChar:keyCode shift:shift capsLock:capsLock];
-    int rimeModifier = [self rimeModifierForOSXModifier:modifier];
-    return RimeProcessKey(sessionId, rimeKeyCode, rimeModifier);
++ (int)rimeKeyCodeForKeyChar:(char)keyChar {
+    int ret;
+    if (keyChar >= 0x20 && keyChar <= 0x7e) {
+        ret = keyChar;
+    }
+    else if (keyChar == 0x1b) {  // ^[ left bracket
+        ret = XK_bracketleft;
+    }
+    else if (keyChar == 0x1c) {  // ^\ backslash
+        ret = XK_backslash;
+    }
+    else if (keyChar == 0x1d) {  // ^] right bracket
+        ret = XK_bracketright;
+    }
+    else if (keyChar == 0x1f) {  // ^_ minus
+        ret = XK_minus;
+    }
+    return ret;
 }
 
-+ (int)rimeKeyCodeForOSXKeyCode:(int)keyCode keyChar:(char)keyChar shift:(BOOL)shift capsLock:(BOOL)capsLock {
++ (int)rimeKeyCodeForOSXKeyCode:(int)keyCode {
     int ret = 0;
-    
     switch (keyCode) {
         case kVK_Space:
             ret = XK_space;
@@ -219,36 +230,14 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
             ret = XK_Alt_L;
             break;
         default:
-            /* NOTE:
-             * IBus/Rime use different keycodes for uppercase/lowercase letters.
-             */
-            if ((shift != capsLock) && keyChar >= 'a' && keyChar <= 'z') {
-                keyChar -= 'a' - 'A';
-            }
-            if (keyChar >= 0x20 && keyChar <= 0x7e) {
-                ret = keyChar;
-            }
-            else if (keyChar == 0x1b) {  // ^[ left bracket
-                ret = XK_bracketleft;
-            }
-            else if (keyChar == 0x1c) {  // ^\ backslash
-                ret = XK_backslash;
-            }
-            else if (keyChar == 0x1d) {  // ^] right bracket
-                ret = XK_bracketright;
-            }
-            else if (keyChar == 0x1f) {  // ^_ minus
-                ret = XK_minus;
-            }
+            ret = 0;
             break;
     }
-    
     return ret;
 }
 
 + (int)rimeModifierForOSXModifier:(int)modifier {
     int ret = 0;
-    
     if (modifier & NSAlphaShiftKeyMask)
         ret |= kLockMask;
     if (modifier & NSShiftKeyMask)
@@ -259,7 +248,6 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
         ret |= kAltMask;
     if (modifier & NSCommandKeyMask)
         ret |= kSuperMask;
-    
     return ret;
 }
 

@@ -112,6 +112,8 @@ SOFTWARE.
  *
  */
 
+// ---
+// Defined in <X11/keysym.h>. Move to here to make this header work independently.
 #define XK_MISCELLANY
 #define XK_XKB_KEYS
 #define XK_LATIN1
@@ -134,6 +136,7 @@ SOFTWARE.
 #define XK_CURRENCY
 #define XK_MATHEMATICAL
 #define XK_BRAILLE
+// ---
 
 #define XK_VoidSymbol                  0xffffff  /* Void symbol */
 

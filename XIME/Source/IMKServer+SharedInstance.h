@@ -10,7 +10,10 @@
 
 @interface IMKServer (SharedInstance)
 
+/// Get IMKSercer connection name from Info.plist
 + (NSString *)connectionName;
+
+/// Get shared IMKServer object
 + (IMKServer *)sharedServer;
 
 @end

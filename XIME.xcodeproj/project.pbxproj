@@ -63,6 +63,12 @@
 		C13DA3D219F30F20004B2348 /* zyenpheng.dict.yaml in Copy Preset Files */ = {isa = PBXBuildFile; fileRef = C13DA36F19F30EAA004B2348 /* zyenpheng.dict.yaml */; };
 		C13DA3D319F30F20004B2348 /* zyenpheng.schema.yaml in Copy Preset Files */ = {isa = PBXBuildFile; fileRef = C13DA37019F30EAA004B2348 /* zyenpheng.schema.yaml */; };
 		C13DA3D419F30F20004B2348 /* symbols.yaml in Copy Preset Files */ = {isa = PBXBuildFile; fileRef = C13DA37119F30EAA004B2348 /* symbols.yaml */; };
+		C13FE7D619F6E4C7005163D3 /* t2s.json in Resources */ = {isa = PBXBuildFile; fileRef = C13FE7D319F6E4C7005163D3 /* t2s.json */; };
+		C13FE7D719F6E4C7005163D3 /* TSCharacters.ocd in Resources */ = {isa = PBXBuildFile; fileRef = C13FE7D419F6E4C7005163D3 /* TSCharacters.ocd */; };
+		C13FE7D819F6E4C7005163D3 /* TSPhrases.ocd in Resources */ = {isa = PBXBuildFile; fileRef = C13FE7D519F6E4C7005163D3 /* TSPhrases.ocd */; };
+		C13FE7D919F6E4FA005163D3 /* t2s.json in Copy opencc Dictionary Files */ = {isa = PBXBuildFile; fileRef = C13FE7D319F6E4C7005163D3 /* t2s.json */; };
+		C13FE7DA19F6E4FA005163D3 /* TSCharacters.ocd in Copy opencc Dictionary Files */ = {isa = PBXBuildFile; fileRef = C13FE7D419F6E4C7005163D3 /* TSCharacters.ocd */; };
+		C13FE7DB19F6E4FA005163D3 /* TSPhrases.ocd in Copy opencc Dictionary Files */ = {isa = PBXBuildFile; fileRef = C13FE7D519F6E4C7005163D3 /* TSPhrases.ocd */; };
 		C162898E19F2ADA800F3289A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C162897F19F2ADA800F3289A /* Images.xcassets */; };
 		C162898F19F2ADA800F3289A /* XIME_Icon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C162898019F2ADA800F3289A /* XIME_Icon.tiff */; };
 		C162899019F2ADA800F3289A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C162898319F2ADA800F3289A /* AppDelegate.m */; };
@@ -176,14 +182,17 @@
 			name = "Copy Preset Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C13DA3D519F30F27004B2348 /* Copy openCC Files */ = {
+		C13DA3D519F30F27004B2348 /* Copy opencc Dictionary Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = opencc;
 			dstSubfolderSpec = 12;
 			files = (
+				C13FE7D919F6E4FA005163D3 /* t2s.json in Copy opencc Dictionary Files */,
+				C13FE7DA19F6E4FA005163D3 /* TSCharacters.ocd in Copy opencc Dictionary Files */,
+				C13FE7DB19F6E4FA005163D3 /* TSPhrases.ocd in Copy opencc Dictionary Files */,
 			);
-			name = "Copy openCC Files";
+			name = "Copy opencc Dictionary Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C13DA3DE19F31359004B2348 /* Copy Library Files */ = {
@@ -259,6 +268,9 @@
 		C13DA36F19F30EAA004B2348 /* zyenpheng.dict.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zyenpheng.dict.yaml; sourceTree = "<group>"; };
 		C13DA37019F30EAA004B2348 /* zyenpheng.schema.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zyenpheng.schema.yaml; sourceTree = "<group>"; };
 		C13DA37119F30EAA004B2348 /* symbols.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbols.yaml; sourceTree = "<group>"; };
+		C13FE7D319F6E4C7005163D3 /* t2s.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = t2s.json; sourceTree = "<group>"; };
+		C13FE7D419F6E4C7005163D3 /* TSCharacters.ocd */ = {isa = PBXFileReference; lastKnownFileType = file; path = TSCharacters.ocd; sourceTree = "<group>"; };
+		C13FE7D519F6E4C7005163D3 /* TSPhrases.ocd */ = {isa = PBXFileReference; lastKnownFileType = file; path = TSPhrases.ocd; sourceTree = "<group>"; };
 		C162897A19F2AD6000F3289A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C162897F19F2ADA800F3289A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C162898019F2ADA800F3289A /* XIME_Icon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = XIME_Icon.tiff; sourceTree = "<group>"; };
@@ -406,6 +418,16 @@
 			path = supplement;
 			sourceTree = "<group>";
 		};
+		C13FE7D219F6E4C7005163D3 /* opencc */ = {
+			isa = PBXGroup;
+			children = (
+				C13FE7D319F6E4C7005163D3 /* t2s.json */,
+				C13FE7D419F6E4C7005163D3 /* TSCharacters.ocd */,
+				C13FE7D519F6E4C7005163D3 /* TSPhrases.ocd */,
+			);
+			path = opencc;
+			sourceTree = "<group>";
+		};
 		C162897C19F2AD6500F3289A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +447,7 @@
 		C162897E19F2ADA800F3289A /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C13FE7D219F6E4C7005163D3 /* opencc */,
 				C13DA33D19F30EAA004B2348 /* Presets */,
 				C162897F19F2ADA800F3289A /* Images.xcassets */,
 				C162898019F2ADA800F3289A /* XIME_Icon.tiff */,
@@ -522,7 +545,7 @@
 				C1FE667E19F24206008E76C5 /* Resources */,
 				C13DA2B819F2CC99004B2348 /* Copy Executable Files */,
 				C13DA3A319F30ECE004B2348 /* Copy Preset Files */,
-				C13DA3D519F30F27004B2348 /* Copy openCC Files */,
+				C13DA3D519F30F27004B2348 /* Copy opencc Dictionary Files */,
 				C13DA3DE19F31359004B2348 /* Copy Library Files */,
 				C1A26E2619F4D0EB007BF527 /* Auto Increase Build Number */,
 			);
@@ -596,9 +619,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13FE7D819F6E4C7005163D3 /* TSPhrases.ocd in Resources */,
 				C162898F19F2ADA800F3289A /* XIME_Icon.tiff in Resources */,
+				C13FE7D619F6E4C7005163D3 /* t2s.json in Resources */,
 				C162898E19F2ADA800F3289A /* Images.xcassets in Resources */,
 				C162899619F2ADA800F3289A /* Main.xib in Resources */,
+				C13FE7D719F6E4C7005163D3 /* TSCharacters.ocd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

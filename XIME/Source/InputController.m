@@ -156,9 +156,12 @@
     // Data: XIME Composed Text <-- Rime Context Preedited Text
     XRimeComposition *composition = [context composition];
     composedText_ = [[NSMutableAttributedString alloc] initWithString:[[context composition] preeditedText]];
-#warning Need UTF-8 fix for cursor position
+    NSLog(@"%d, %d", [composition selectionStart], [composition selectionEnd]);
+    NSRange convertedRange = NSMakeRange(0, [composition selectionStart]);
+    NSRange selectedRange = NSMakeRange([composition selectionStart], [composition selectionEnd] - [composition selectionStart]);
+    [composedText_ setAttributes:[self markForStyle:kTSMHiliteConvertedText atRange:convertedRange] range:convertedRange]; // Text attribute for converted text
+    [composedText_ setAttributes:[self markForStyle:kTSMHiliteSelectedRawText atRange:selectedRange] range:selectedRange]; // Text attribute for uncoverted text
     cursorPosition_ = [composition cursorPosition];
-#pragma mark TODO: Add text attribute for converted text and selected raw text
     [self updateComposition];
     
     // Data: XIME Candidate Window <-- Rime Context Candidates

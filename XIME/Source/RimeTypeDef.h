@@ -50,7 +50,6 @@ typedef enum : NSUInteger {
 
 @interface XRimeComposition : NSObject
 
-@property (nonatomic, assign) int length;
 @property (nonatomic, assign) int cursorPosition;
 @property (nonatomic, assign) int selectionStart;
 @property (nonatomic, assign) int selectionEnd;

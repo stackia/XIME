@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C11CE9E919F3AD6F00B57972 /* librime.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C11CE9E819F3AD6F00B57972 /* librime.1.dylib */; };
 		C11CE9EA19F3AD8D00B57972 /* librime.1.dylib in Copy Library Files */ = {isa = PBXBuildFile; fileRef = C11CE9E819F3AD6F00B57972 /* librime.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C1251AAD19F7B99E00C88AC9 /* NSString+UTF8Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C1251AAC19F7B99E00C88AC9 /* NSString+UTF8Utils.m */; };
 		C13DA2CA19F2CD4B004B2348 /* rime_api_console in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = C13DA2C019F2CD3A004B2348 /* rime_api_console */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C13DA2CB19F2CD4B004B2348 /* rime_console in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = C13DA2C119F2CD3A004B2348 /* rime_console */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C13DA2CC19F2CD4B004B2348 /* rime_deployer in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = C13DA2C219F2CD3A004B2348 /* rime_deployer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -210,6 +211,8 @@
 
 /* Begin PBXFileReference section */
 		C11CE9E819F3AD6F00B57972 /* librime.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = librime.1.dylib; sourceTree = "<group>"; };
+		C1251AAB19F7B99E00C88AC9 /* NSString+UTF8Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UTF8Utils.h"; sourceTree = "<group>"; };
+		C1251AAC19F7B99E00C88AC9 /* NSString+UTF8Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UTF8Utils.m"; sourceTree = "<group>"; };
 		C13DA2C019F2CD3A004B2348 /* rime_api_console */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = rime_api_console; sourceTree = "<group>"; };
 		C13DA2C119F2CD3A004B2348 /* rime_console */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = rime_console; sourceTree = "<group>"; };
 		C13DA2C219F2CD3A004B2348 /* rime_deployer */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = rime_deployer; sourceTree = "<group>"; };
@@ -468,6 +471,8 @@
 				C162898919F2ADA800F3289A /* RimeWrapper.m */,
 				C1A26E2719F5447B007BF527 /* RimeTypeDef.h */,
 				C1A26E2A19F561C9007BF527 /* RimeTypeDef.m */,
+				C1251AAB19F7B99E00C88AC9 /* NSString+UTF8Utils.h */,
+				C1251AAC19F7B99E00C88AC9 /* NSString+UTF8Utils.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -660,6 +665,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C162899519F2ADA800F3289A /* main.m in Sources */,
+				C1251AAD19F7B99E00C88AC9 /* NSString+UTF8Utils.m in Sources */,
 				C162899119F2ADA800F3289A /* IMKServer+SharedInstance.m in Sources */,
 				C162899019F2ADA800F3289A /* AppDelegate.m in Sources */,
 				C162899319F2ADA800F3289A /* RimeWrapper.m in Sources */,

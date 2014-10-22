@@ -7,6 +7,7 @@
 //
 
 #import "RimeWrapper.h"
+#import "NSString+UTF8Utils.h"
 #include "rime_api.h"
 
 static id<RimeNotificationDelegate> notificationDelegate_ = nil;
@@ -286,7 +287,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
             [xMenu setSelectKeys:[NSString stringWithUTF8String:ctx.menu.select_keys]];
         }
         NSMutableArray *xCandidates = [NSMutableArray array];
-        for (int i = 0; i < ctx.menu.num_candidates; i++) {
+        for (int i = 0; i < ctx.menu.num_candidates; ++i) {
             XRimeCandidate *xCandidate = [[XRimeCandidate alloc] init];
             if (ctx.menu.candidates[i].text) {
                 [xCandidate setText:[NSString stringWithUTF8String:ctx.menu.candidates[i].text]];
@@ -297,11 +298,10 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
             [xCandidates addObject:xCandidate];
         }
         [xMenu setCandidates:xCandidates];
-        
-        [xComp setLength:ctx.composition.length];
-        [xComp setCursorPosition:ctx.composition.cursor_pos];
-        [xComp setSelectionStart:ctx.composition.sel_start];
-        [xComp setSelectionEnd:ctx.composition.sel_end];
+
+        [xComp setCursorPosition:[NSString NSStringPosFromUTF8Pos:ctx.composition.cursor_pos string:ctx.composition.preedit]];
+        [xComp setSelectionStart:[NSString NSStringPosFromUTF8Pos:ctx.composition.sel_start string:ctx.composition.preedit]];
+        [xComp setSelectionEnd: [NSString NSStringPosFromUTF8Pos:ctx.composition.sel_end string:ctx.composition.preedit]];
         if (ctx.composition.preedit) {
             [xComp setPreeditedText:[NSString stringWithUTF8String:ctx.composition.preedit]];
         } else {

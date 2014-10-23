@@ -7,6 +7,8 @@
 //
 
 #import "InputController.h"
+#import "AppDelegate.h"
+#import "CandidateWindowController.h"
 
 @implementation InputController {
     RimeSessionId rimeSessionId_; // Holds corresponding Rime session id of this input controller
@@ -131,7 +133,7 @@
  *
  * Data:
  *  XIME Composed Text <-- Rime Context Preedited Text
- *  XIME Candidate Window <-- Rime Context Candidates
+ *  XIME Candidate Window <-- Rime Context
  *
  * Action:
  *  XIME Commit Composition --> Rime Commit Composition
@@ -164,8 +166,14 @@
     cursorPosition_ = [composition cursorPosition];
     [self updateComposition];
     
-    // Data: XIME Candidate Window <-- Rime Context Candidates
+    // Data: XIME Candidate Window <-- Rime Context
 #pragma mark TODO: XIME Candidate Window <-- Rime Context Candidates
+    AppDelegate *appDelegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    CandidateWindowController *candidateWindowController = [appDelegate candidateWindowController];
+    NSRect caretRect;
+    [[self client] attributesForCharacterIndex:0 lineHeightRectangle:&caretRect];
+    [candidateWindowController updateWithRimeContext:context caretRect:caretRect];
+    
     NSArray *candidates = [[context menu] candidates];
     if ([candidates count] > 0)
         NSLog(@"Candidates:");

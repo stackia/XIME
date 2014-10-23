@@ -32,6 +32,9 @@
     } else {
         NSLog(@"Failed to start Rime service.");
     }
+    
+    // Initialize candidate window controller
+    [self setCandidateWindowController:[[CandidateWindowController alloc] initWithWindowNibName:@"CandidateWindowController"]];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>135</string>
+	<string>198</string>
 	<key>InputMethodConnectionName</key>
 	<string>com.Stackia.inputmethod.XIME.IMKConnection</string>
 	<key>InputMethodServerControllerClass</key>

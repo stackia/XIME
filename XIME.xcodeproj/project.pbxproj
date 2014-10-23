@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C117E22119F9154F00214E70 /* CandidateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C117E21F19F9154F00214E70 /* CandidateWindowController.m */; };
+		C117E22219F9154F00214E70 /* CandidateWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C117E22019F9154F00214E70 /* CandidateWindowController.xib */; };
 		C11CE9E919F3AD6F00B57972 /* librime.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C11CE9E819F3AD6F00B57972 /* librime.1.dylib */; };
 		C11CE9EA19F3AD8D00B57972 /* librime.1.dylib in Copy Library Files */ = {isa = PBXBuildFile; fileRef = C11CE9E819F3AD6F00B57972 /* librime.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C1251AAD19F7B99E00C88AC9 /* NSString+UTF8Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C1251AAC19F7B99E00C88AC9 /* NSString+UTF8Utils.m */; };
@@ -210,6 +212,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C117E21E19F9154F00214E70 /* CandidateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CandidateWindowController.h; sourceTree = "<group>"; };
+		C117E21F19F9154F00214E70 /* CandidateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CandidateWindowController.m; sourceTree = "<group>"; };
+		C117E22019F9154F00214E70 /* CandidateWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CandidateWindowController.xib; sourceTree = "<group>"; };
 		C11CE9E819F3AD6F00B57972 /* librime.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = librime.1.dylib; sourceTree = "<group>"; };
 		C1251AAB19F7B99E00C88AC9 /* NSString+UTF8Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UTF8Utils.h"; sourceTree = "<group>"; };
 		C1251AAC19F7B99E00C88AC9 /* NSString+UTF8Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UTF8Utils.m"; sourceTree = "<group>"; };
@@ -473,6 +478,9 @@
 				C1A26E2A19F561C9007BF527 /* RimeTypeDef.m */,
 				C1251AAB19F7B99E00C88AC9 /* NSString+UTF8Utils.h */,
 				C1251AAC19F7B99E00C88AC9 /* NSString+UTF8Utils.m */,
+				C117E21E19F9154F00214E70 /* CandidateWindowController.h */,
+				C117E21F19F9154F00214E70 /* CandidateWindowController.m */,
+				C117E22019F9154F00214E70 /* CandidateWindowController.xib */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -626,6 +634,7 @@
 			files = (
 				C13FE7D819F6E4C7005163D3 /* TSPhrases.ocd in Resources */,
 				C162898F19F2ADA800F3289A /* XIME_Icon.tiff in Resources */,
+				C117E22219F9154F00214E70 /* CandidateWindowController.xib in Resources */,
 				C13FE7D619F6E4C7005163D3 /* t2s.json in Resources */,
 				C162898E19F2ADA800F3289A /* Images.xcassets in Resources */,
 				C162899619F2ADA800F3289A /* Main.xib in Resources */,
@@ -669,6 +678,7 @@
 				C162899119F2ADA800F3289A /* IMKServer+SharedInstance.m in Sources */,
 				C162899019F2ADA800F3289A /* AppDelegate.m in Sources */,
 				C162899319F2ADA800F3289A /* RimeWrapper.m in Sources */,
+				C117E22119F9154F00214E70 /* CandidateWindowController.m in Sources */,
 				C162899219F2ADA800F3289A /* InputController.m in Sources */,
 				C19AE36619F3E73300592E35 /* README.md in Sources */,
 				C1A26E2B19F561C9007BF527 /* RimeTypeDef.m in Sources */,

@@ -7,7 +7,10 @@
 //
 
 #import "RimeWrapper.h"
+#import "CandidateWindowController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, RimeNotificationDelegate>
+
+@property (nonatomic, strong) CandidateWindowController *candidateWindowController;
 
 @end

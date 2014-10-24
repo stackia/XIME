@@ -13,6 +13,7 @@
 @implementation InputController {
     RimeSessionId rimeSessionId_; // Holds corresponding Rime session id of this input controller
     BOOL committed_; // Indicate whether XIME has committed composed text
+    BOOL canceled_; // Indicate whether XIME has canceled composition.
     NSMutableAttributedString *composedText_;
     int cursorPosition_; // Cursor position in the composed text
 }
@@ -65,33 +66,28 @@
         
         int rimeModifier = [RimeWrapper rimeModifierForOSXModifier:modifierFlags];
         
-        if (flagDelta & NSAlphaShiftKeyMask) // CapsLock key
-        {
+        if (flagDelta & NSAlphaShiftKeyMask) { // CapsLock key
             /* NOTE: Rime assumes XK_Caps_Lock to be sent before modifier changes, while NSFlagsChanged event has the flag changed already. So it is necessary to revert kLockMask. */
             rimeModifier ^= kLockMask;
             [RimeWrapper inputKeyForSession:rimeSessionId_ rimeKeyCode:XK_Caps_Lock rimeModifier:rimeModifier];
         }
         
-        if (flagDelta & NSShiftKeyMask) // Shift key
-        {
+        if (flagDelta & NSShiftKeyMask) { // Shift key
             int releaseMask = modifierFlags & NSShiftKeyMask ? 0 : kReleaseMask;
             [RimeWrapper inputKeyForSession:rimeSessionId_ rimeKeyCode:XK_Shift_L rimeModifier:rimeModifier | releaseMask];
         }
         
-        if (flagDelta & NSControlKeyMask) // Control key
-        {
+        if (flagDelta & NSControlKeyMask) { // Control key
             int releaseMask = modifierFlags & NSControlKeyMask ? 0 : kReleaseMask;
             [RimeWrapper inputKeyForSession:rimeSessionId_ rimeKeyCode:XK_Control_L rimeModifier:rimeModifier | releaseMask];
         }
         
-        if (flagDelta & NSAlternateKeyMask) // Option key
-        {
+        if (flagDelta & NSAlternateKeyMask) { // Option key
             int releaseMask = modifierFlags & NSAlternateKeyMask ? 0 : kReleaseMask;
             [RimeWrapper inputKeyForSession:rimeSessionId_ rimeKeyCode:XK_Alt_L rimeModifier:rimeModifier | releaseMask];
         }
         
-        if (flagDelta & NSCommandKeyMask) // Command key
-        {
+        if (flagDelta & NSCommandKeyMask) { // Command key
             int releaseMask = modifierFlags & NSCommandKeyMask ? 0 : kReleaseMask;
             [RimeWrapper inputKeyForSession:rimeSessionId_ rimeKeyCode:XK_Super_L rimeModifier:rimeModifier | releaseMask];
             // Do not update UI when using Command key
@@ -138,6 +134,7 @@
  * Action:
  *  XIME Commit Composition --> Rime Commit Composition
  *  XIME Insert Text <-- Rime Commit Composition
+ *  XIME Cancel Composition --> Rime Clear Composition
  */
 - (void)syncWithRime {
     
@@ -153,12 +150,17 @@
         [[self client] insertText:rimeComposedText replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     }
     
+    // Action: XIME Cancel Composition --> Rime Clear Composition
+    if (canceled_) {
+        canceled_ = NO;
+        [RimeWrapper clearCompositionForSession:rimeSessionId_];
+    }
+    
     XRimeContext *context = [RimeWrapper contextForSession:rimeSessionId_];
 
     // Data: XIME Composed Text <-- Rime Context Preedited Text
     XRimeComposition *composition = [context composition];
     composedText_ = [[NSMutableAttributedString alloc] initWithString:[[context composition] preeditedText]];
-    NSLog(@"%d, %d", [composition selectionStart], [composition selectionEnd]);
     NSRange convertedRange = NSMakeRange(0, [composition selectionStart]);
     NSRange selectedRange = NSMakeRange([composition selectionStart], [composition selectionEnd] - [composition selectionStart]);
     [composedText_ setAttributes:[self markForStyle:kTSMHiliteConvertedText atRange:convertedRange] range:convertedRange]; // Text attribute for converted text
@@ -187,6 +189,7 @@
 #pragma mark IMKStateSetting Delegate
 
 - (void)deactivateServer:(id)sender {
+#warning Known issue: When switching IME, the system will first call commitComposition: then deactivateServer:. The cancelComposition: method here doesn't really make a difference.
     [self cancelComposition];
 }
 
@@ -211,6 +214,8 @@
 // Rewrite this method because the original one will crash when using ARC
 - (void)cancelComposition {
     [[self client] insertText:[self originalString:self] replacementRange:[self replacementRange]];
+    canceled_ = YES;
+    [self syncWithRime];
 }
 
 - (id)initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)inputClient {

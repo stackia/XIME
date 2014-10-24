@@ -96,6 +96,9 @@ typedef enum {
 /// Consume composed text. Return nil if there is nothing to consume.
 + (NSString *)consumeComposedTextForSession:(RimeSessionId)sessionId;
 
+/// Clear composition buffer.
++ (void)clearCompositionForSession:(RimeSessionId)sessionId;
+
 /// Get the Rime context for a session
 + (XRimeContext *)contextForSession:(RimeSessionId)sessiodId;
 

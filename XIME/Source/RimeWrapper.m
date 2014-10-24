@@ -261,8 +261,13 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
     RIME_STRUCT(RimeCommit, commit);
     if (RimeGetCommit(sessionId, &commit)) {
         composedText = [NSString stringWithUTF8String:commit.text];
+        RimeFreeCommit(&commit);
     }
     return composedText;
+}
+
++ (void)clearCompositionForSession:(RimeSessionId)sessionId {
+    RimeClearComposition(sessionId);
 }
 
 + (XRimeContext *)contextForSession:(RimeSessionId)sessiodId {
@@ -307,6 +312,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
         } else {
             [xComp setPreeditedText:@""];
         }
+        RimeFreeContext(&ctx);
     }
     return xCtx;
 }

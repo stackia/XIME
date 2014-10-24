@@ -16,6 +16,6 @@
 
 // All const definitions here
 #define kXIMEUserDataDirectoryKey @"XIMEUserDataDirectory"
-#define kXIMECandidateWindowPositionVerticalOffset 5;
+#define kXIMECandidateWindowPositionVerticalOffset 5
 
 #endif

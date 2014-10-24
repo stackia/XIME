@@ -33,7 +33,7 @@
         
         // Reposition window
         windowRect.origin.x = NSMinX(caretRect);
-        windowRect.origin.y = NSMaxY(caretRect) + kXIMECandidateWindowPositionVerticalOffset;
+        windowRect.origin.y = NSMinY(caretRect) - kXIMECandidateWindowPositionVerticalOffset - NSHeight(windowRect);
         
         // Fit in current screen
         NSRect screenRect = [[NSScreen mainScreen] frame];
@@ -53,10 +53,10 @@
             windowRect.origin.x = NSMinX(screenRect);
         }
         if (NSMinY(windowRect) < NSMinY(screenRect)) {
-            windowRect.origin.y = NSMinY(screenRect);
+            windowRect.origin.y = NSMaxY(caretRect) + kXIMECandidateWindowPositionVerticalOffset;
         }
         if (NSMaxY(windowRect) > NSMaxY(screenRect)) {
-            windowRect.origin.y = NSMinY(caretRect) - NSHeight(windowRect) - kXIMECandidateWindowPositionVerticalOffset;
+            windowRect.origin.y = NSMaxY(screenRect) - NSHeight(windowRect);
         }
         
         // Show window

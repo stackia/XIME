@@ -13,7 +13,6 @@
 
 @property (weak) IBOutlet NSVisualEffectView *contentView;
 
-
 /// Update candidate window. If no candidates available, the window will be invisible.
 - (void)updateWithRimeContext:(XRimeContext *)context caretRect:(NSRect)caretRect;
 

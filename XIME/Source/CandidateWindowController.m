@@ -27,14 +27,13 @@
         // Hide window
         [[self window] orderOut:self];
     } else {
-        const int verticalOffet = 5;
         
         // Resize window
         NSRect windowRect = [[self window] frame];
         
         // Reposition window
         windowRect.origin.x = NSMinX(caretRect);
-        windowRect.origin.y = NSMinY(caretRect) - NSHeight(caretRect) - verticalOffet;
+        windowRect.origin.y = NSMaxY(caretRect) + kXIMECandidateWindowPositionVerticalOffset;
         
         // Fit in current screen
         NSRect screenRect = [[NSScreen mainScreen] frame];
@@ -54,13 +53,10 @@
             windowRect.origin.x = NSMinX(screenRect);
         }
         if (NSMinY(windowRect) < NSMinY(screenRect)) {
-            windowRect.origin.y = NSMaxY(caretRect) + verticalOffet;
+            windowRect.origin.y = NSMinY(screenRect);
         }
         if (NSMaxY(windowRect) > NSMaxY(screenRect)) {
-            windowRect.origin.y = NSMaxY(screenRect) - NSHeight(windowRect);
-        }
-        if (NSMinY(windowRect) < NSMinY(screenRect)) {
-            windowRect.origin.y = NSMinY(screenRect);
+            windowRect.origin.y = NSMinY(caretRect) - NSHeight(windowRect) - kXIMECandidateWindowPositionVerticalOffset;
         }
         
         // Show window

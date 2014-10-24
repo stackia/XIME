@@ -15,7 +15,6 @@
 #pragma mark Application Delegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    
     // Create IMKServer
     if ([IMKServer sharedServer] == nil) {
         NSLog(@"Failed to create IMKServer.");

@@ -14,6 +14,8 @@
     #import <Cocoa/Cocoa.h>
 #endif
 
+// All const definitions here
 #define kXIMEUserDataDirectoryKey @"XIMEUserDataDirectory"
+#define kXIMECandidateWindowPositionVerticalOffset 5;
 
 #endif

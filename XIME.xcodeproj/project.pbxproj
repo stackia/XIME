@@ -561,6 +561,7 @@
 				C13DA3D519F30F27004B2348 /* Copy opencc Dictionary Files */,
 				C13DA3DE19F31359004B2348 /* Copy Library Files */,
 				C1A26E2619F4D0EB007BF527 /* Auto Increase Build Number */,
+				C107775E19FA5AAC00D3E673 /* Kill Running XIME Instances */,
 			);
 			buildRules = (
 				C19AE36719F3E75900592E35 /* PBXBuildRule */,
@@ -652,6 +653,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		C107775E19FA5AAC00D3E673 /* Kill Running XIME Instances */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Kill Running XIME Instances";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\n(kill $(ps aux | grep '[X]IME' | awk '{print $2}')) 2>/dev/null || true";
+		};
 		C1A26E2619F4D0EB007BF527 /* Auto Increase Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

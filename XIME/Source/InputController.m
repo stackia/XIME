@@ -202,6 +202,17 @@
     return NSMakeRange(cursorPosition_, 0);
 }
 
+// Rewrite this method because the original one will crash when using ARC
+- (void)updateComposition {
+    NSAttributedString *composedString = [self composedString:self];
+    [[self client] setMarkedText:composedString selectionRange:[self selectionRange] replacementRange:[self replacementRange]];
+}
+
+// Rewrite this method because the original one will crash when using ARC
+- (void)cancelComposition {
+    [[self client] insertText:[self originalString:self] replacementRange:[self replacementRange]];
+}
+
 - (id)initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)inputClient {
     if (self = [super initWithServer:server delegate:delegate client:inputClient]) {
         rimeSessionId_ = [RimeWrapper createSession]; // Try to create Rime session

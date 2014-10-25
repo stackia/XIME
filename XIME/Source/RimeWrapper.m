@@ -13,7 +13,6 @@
 static id<RimeNotificationDelegate> notificationDelegate_ = nil;
 
 void notificationHandler(void* context_object, RimeSessionId session_id, const char* message_type, const char* message_value) {
-    NSLog(@"Rime notification from session: %lu, type: %s, value: %s", session_id, message_type, message_value);
     
     if (notificationDelegate_ == nil) {
         return;

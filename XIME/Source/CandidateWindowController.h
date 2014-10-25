@@ -12,8 +12,13 @@
 @interface CandidateWindowController : NSWindowController
 
 @property (weak) IBOutlet NSVisualEffectView *contentView;
+@property (weak) IBOutlet NSTextField *mainTextField;
+@property (weak) IBOutlet NSLayoutConstraint *mainTextFieldWidth;
 
 /// Update candidate window. If no candidates available, the window will be invisible.
 - (void)updateWithRimeContext:(XRimeContext *)context caretRect:(NSRect)caretRect;
+
+/// Force to hide candidate window
+- (void)hideWindow:(id)sender;
 
 @end

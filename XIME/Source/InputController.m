@@ -22,7 +22,6 @@
 
 /* We choose the 'handleEvent:client:' way to receive input events from the client. */
 - (BOOL)handleEvent:(NSEvent *)event client:(id)sender {
-    NSLog(@"Event received, type: %lu", [event type]);
     
     BOOL handled = NO;
     NSEventType eventType = [event type];
@@ -34,12 +33,9 @@
         if (!rimeSessionId_) { // If still failed to create Rime session, do not handle this event.
             return NO;
         }
-        NSLog(@"Rime session created: %lu", rimeSessionId_);
     }
     
     if (eventType == NSKeyDown) { // Key down event
-        
-        NSLog(@"[KeyDown] Key char: '%@', key code: %hu, modifier: %lu", [event characters], [event keyCode], modifierFlags);
         
         if (modifierFlags & NSCommandKeyMask) { // 'Command + <key>' events will also be passed to here. We will ignore them.
             handled = NO;
@@ -57,8 +53,6 @@
         }
         
     } else if (eventType == NSFlagsChanged) { // Modifier flags changed event
-        
-        NSLog(@"[FlagsChanged] Modifier: %lu", modifierFlags);
         
         static NSEventModifierFlags lastModifierFlags = 0;
         NSEventModifierFlags flagDelta = lastModifierFlags ^ modifierFlags;
@@ -98,8 +92,6 @@
         
     } else if (eventType == NSLeftMouseDown) { // Left mouse down event
         
-        NSLog(@"[LeftMouseDown]");
-        
         [self cancelComposition];
         handled = NO; // Pass event down to the responder chain
         
@@ -113,8 +105,7 @@
 }
 
 - (NSAttributedString *)originalString:(id)sender {
-#pragma mark TODO: Get original string from Rime service
-    return [[NSAttributedString alloc] initWithString:@""];
+    return composedText_;
 }
 
 - (void)commitComposition:(id)sender {
@@ -137,6 +128,10 @@
  *  XIME Cancel Composition --> Rime Clear Composition
  */
 - (void)syncWithRime {
+    
+    if (!rimeSessionId_) { // Cannot sync if there is no rime session
+        return;
+    }
     
     // Action: XIME Commit Composition --> Rime Commit Composition
     if (committed_) { // Flagged in commitComposition:(id)sender
@@ -175,15 +170,6 @@
     NSRect caretRect;
     [[self client] attributesForCharacterIndex:0 lineHeightRectangle:&caretRect];
     [candidateWindowController updateWithRimeContext:context caretRect:caretRect];
-    
-    NSArray *candidates = [[context menu] candidates];
-    if ([candidates count] > 0)
-        NSLog(@"Candidates:");
-    int i = 0;
-    for (XRimeCandidate *candidate in candidates) {
-        ++i;
-        NSLog(@"%d: %@, %@", i, [candidate text], [candidate comment]);
-    }
 }
 
 #pragma mark IMKStateSetting Delegate
@@ -221,11 +207,18 @@
 - (id)initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)inputClient {
     if (self = [super initWithServer:server delegate:delegate client:inputClient]) {
         rimeSessionId_ = [RimeWrapper createSession]; // Try to create Rime session
-        if (rimeSessionId_ ) {
-            NSLog(@"Rime session created: %lu", rimeSessionId_);
-        }
     }
     return self;
+}
+
+- (void)hidePalettes {
+    AppDelegate *appDelegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    [[appDelegate candidateWindowController] hideWindow:self];
+}
+
+- (NSMenu *)menu {
+    AppDelegate *appDelegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    return [appDelegate mainMenu];
 }
 
 - (void)inputControllerWillClose {
@@ -233,7 +226,16 @@
     if ([RimeWrapper isSessionAlive:rimeSessionId_]) {
         [RimeWrapper destroySession:rimeSessionId_];
     }
-    NSLog(@"Rime session destroyed: %lu", rimeSessionId_);
+}
+
+#pragma mark Menu item actions
+
+- (void)menuActionRedeploy:(id)sender {
+    [RimeWrapper redeployWithFastMode:NO];
+}
+
+- (void)menuActionShowPreferences:(id)sender {
+    [[NSWorkspace sharedWorkspace] openFile:[[[[NSBundle mainBundle] infoDictionary] objectForKey:kXIMEUserDataDirectoryKey] stringByStandardizingPath]];
 }
 
 @end

@@ -11,4 +11,7 @@
 
 @interface InputController : IMKInputController
 
+- (void)menuActionRedeploy:(id)sender;
+- (void)menuActionShowPreferences:(id)sender;
+
 @end

@@ -12,5 +12,6 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate, RimeNotificationDelegate>
 
 @property (nonatomic, strong) CandidateWindowController *candidateWindowController;
+@property (weak) IBOutlet NSMenu *mainMenu;
 
 @end

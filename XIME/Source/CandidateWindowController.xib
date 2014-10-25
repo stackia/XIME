@@ -7,6 +7,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CandidateWindowController">
             <connections>
                 <outlet property="contentView" destination="YhF-zF-gYG" id="5aN-0H-dZJ"/>
+                <outlet property="mainTextField" destination="QWI-5f-2RV" id="8DQ-uz-5it"/>
+                <outlet property="mainTextFieldWidth" destination="ape-kq-4DZ" id="nV2-6f-X8H"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -15,21 +17,40 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="0.0" y="0.0" width="245" height="70"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="114" height="28"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="245" height="70"/>
+                <rect key="frame" x="0.0" y="0.0" width="114" height="28"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="YhF-zF-gYG">
-                        <rect key="frame" x="0.0" y="0.0" width="245" height="70"/>
+                    <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="YhF-zF-gYG">
+                        <rect key="frame" x="0.0" y="0.0" width="114" height="28"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QWI-5f-2RV">
+                                <rect key="frame" x="3" y="5" width="108" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="104" id="ape-kq-4DZ"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Candidates Here" id="vcf-no-AU7">
+                                    <font key="font" metaFont="system" size="14"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="QWI-5f-2RV" firstAttribute="leading" secondItem="YhF-zF-gYG" secondAttribute="leading" constant="5" id="0rS-Yu-Wja"/>
+                            <constraint firstAttribute="bottom" secondItem="QWI-5f-2RV" secondAttribute="bottom" constant="5" id="IUO-wv-dBe"/>
+                            <constraint firstItem="QWI-5f-2RV" firstAttribute="top" secondItem="YhF-zF-gYG" secondAttribute="top" constant="5" id="PMe-Jb-eas"/>
+                            <constraint firstAttribute="trailing" secondItem="QWI-5f-2RV" secondAttribute="trailing" constant="5" id="uJN-Lz-YWS"/>
+                        </constraints>
                     </visualEffectView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="YhF-zF-gYG" secondAttribute="bottom" id="0ad-oG-mWd"/>
-                    <constraint firstItem="YhF-zF-gYG" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="3cx-4l-Vnx"/>
-                    <constraint firstAttribute="trailing" secondItem="YhF-zF-gYG" secondAttribute="trailing" id="WxF-oQ-Fm4"/>
-                    <constraint firstItem="YhF-zF-gYG" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="bZ8-Ue-reI"/>
+                    <constraint firstItem="YhF-zF-gYG" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="J4i-gZ-WyI"/>
+                    <constraint firstAttribute="bottom" secondItem="YhF-zF-gYG" secondAttribute="bottom" id="PHB-7e-qcp"/>
+                    <constraint firstItem="YhF-zF-gYG" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="ZPS-fZ-L70"/>
+                    <constraint firstAttribute="trailing" secondItem="YhF-zF-gYG" secondAttribute="trailing" id="okk-gv-T5R"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
@@ -41,7 +62,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="235.5" y="101"/>
+            <point key="canvasLocation" x="32" y="220"/>
         </window>
     </objects>
 </document>

@@ -23,15 +23,30 @@
 }
 
 - (void)updateWithRimeContext:(XRimeContext *)context caretRect:(NSRect)caretRect {
+    NSWindow *window = [self window];
     if ([[[context menu] candidates] count] == 0) {
         // Hide window
-        [[self window] orderOut:self];
+        [window orderOut:self];
     } else {
+        // Compose candidates
+        NSMutableAttributedString *candidateText = [[NSMutableAttributedString alloc] init];
+        NSArray *candidates = [[context menu] candidates];
+        for (int i = 0; i < [candidates count]; ++i) {
+            XRimeCandidate *candidate = [candidates objectAtIndex:i];
+            [candidateText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d ", i + 1]]];
+            [candidateText appendAttributedString:[[NSAttributedString alloc] initWithString:[candidate text]]];
+            if (i != [candidates count] - 1) {
+                [candidateText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+            }
+        }
+        [[self mainTextField] setAttributedStringValue:candidateText];
         
-        // Resize window
-        NSRect windowRect = [[self window] frame];
+        // Update window size (use auto layout to resize window frame)
+        [[self mainTextFieldWidth] setConstant:[[self mainTextField] intrinsicContentSize].width]; // But we have to set text field width manuelly
+        [[self window] layoutIfNeeded];
         
         // Reposition window
+        NSRect windowRect = [window frame];
         windowRect.origin.x = NSMinX(caretRect);
         windowRect.origin.y = NSMinY(caretRect) - kXIMECandidateWindowPositionVerticalOffset - NSHeight(windowRect);
         
@@ -60,9 +75,13 @@
         }
         
         // Show window
-        [[self window] setFrame:windowRect display:YES];
-        [[self window] orderFront:self];
+        [window setFrame:windowRect display:YES];
+        [window orderFront:self];
     }
+}
+
+- (void)hideWindow:(id)sender {
+    [[self window] orderOut:sender];
 }
 
 @end

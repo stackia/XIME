@@ -11,6 +11,23 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="bqa-9R-ZrX" customClass="AppDelegate"/>
+        <customObject id="bqa-9R-ZrX" customClass="AppDelegate">
+            <connections>
+                <outlet property="mainMenu" destination="nCY-Tt-F8c" id="TCh-U0-uJg"/>
+                <outlet property="menuItemRedeploy_" destination="hyS-rk-WyH" id="nE5-Fk-sT8"/>
+                <outlet property="menuItemShowPreferences_" destination="3gD-bP-v1d" id="Ex3-eT-0WO"/>
+            </connections>
+        </customObject>
+        <menu id="nCY-Tt-F8c">
+            <items>
+                <menuItem title="Redeploy" id="hyS-rk-WyH">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Preferences..." id="3gD-bP-v1d">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="95" y="289.5"/>
+        </menu>
     </objects>
 </document>

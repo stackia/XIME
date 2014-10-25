@@ -3,12 +3,14 @@
 
 ***XIME is still under heavy development and has not fully implemented the following features, and even may completely not work at all. Please fell free to contribute to the project and join our discussion.***
 
-* Use [Rime][1] as backend, extremely fast and flexible.
-* Inspired by [Squirrel][2], but completely rewritten.
-* Integrated GUI customizer, it has never been so easy and joyful to customize your IME.
-* Carefully redesigned user experience that suits your OS X harmouniously.
+![XIME Input Method Editor][1]
+
+* Use [Rime][2] as backend, extremely fast and flexible.
+* Inspired by [Squirrel][3], but completely rewritten.
+* Integrated GUI customizer, it has never been so easy and joyful to customize your IME. ***not implemented***
+* Carefully redesigned user experience that suits your OS X harmouniously. ***not implemented***
 * Easy to install, easy to remove.
-* Sync your preferences and dictionary via Dropbox.
+* Sync your preferences and dictionary via Dropbox. ***not implemented***
 
 If you have any other idea, please let us know in the issue tracker.
 
@@ -23,5 +25,7 @@ The GNU General Public License v3.0 (GPL v3)
 > 
 >You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-[1]: https://github.com/lotem/librime
-[2]: https://github.com/lotem/squirrel
+
+[1]: http://i.imgur.com/EzblWGM.png
+[2]: https://github.com/lotem/librime
+[3]: https://github.com/lotem/squirrel

@@ -20,7 +20,25 @@
 
 #pragma mark IMKServerInput Delegate
 
-/* We choose the 'handleEvent:client:' way to receive input events from the client. */
+/**
+ * We choose the 'handleEvent:client:' way to receive input events from the client.
+ *
+ * XIME has to receive key up event to work with Rime chord composer. But it seems the client will not send NSKeyUp event to input method unless we get trusted for accessibility access and call
+ *
+ * + addGlobalMonitorForEventsMatchingMask:handler:
+ *
+ * to add a global hook of key event.
+ * So if a user want to use chord composer, he need to give XIME accessibility access.
+ *
+ * Related commands:
+ * 
+ * # Add
+ * sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "REPLACE INTO access VALUES('kTCCServiceAccessibility','com.Stackia.inputmethod.XIME',0,1,1,NULL);"
+ *
+ * # Remove
+ * sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "delete from access where client='com.Stackia.inputmethod.XIME';"
+ *
+ */
 - (BOOL)handleEvent:(NSEvent *)event client:(id)sender {
     
     BOOL handled = NO;
@@ -34,6 +52,9 @@
             return NO;
         }
     }
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    [appDelegate setCurrentInputController:self];
     
     if (eventType == NSKeyDown) { // Key down event
         
@@ -155,7 +176,7 @@
 
     // Data: XIME Composed Text <-- Rime Context Preedited Text
     XRimeComposition *composition = [context composition];
-    composedText_ = [[NSMutableAttributedString alloc] initWithString:[[context composition] preeditedText]];
+    composedText_ = [[NSMutableAttributedString alloc] initWithString:[composition preeditedText]];
     NSRange convertedRange = NSMakeRange(0, [composition selectionStart]);
     NSRange selectedRange = NSMakeRange([composition selectionStart], [composition selectionEnd] - [composition selectionStart]);
     [composedText_ setAttributes:[self markForStyle:kTSMHiliteConvertedText atRange:convertedRange] range:convertedRange]; // Text attribute for converted text
@@ -207,6 +228,11 @@
 - (id)initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)inputClient {
     if (self = [super initWithServer:server delegate:delegate client:inputClient]) {
         rimeSessionId_ = [RimeWrapper createSession]; // Try to create Rime session
+        
+        // Set candidate window level
+        AppDelegate *appDelegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+        CandidateWindowController *candidateWindowController = [appDelegate candidateWindowController];
+        [candidateWindowController setWindowLevel:[[self client] windowLevel] + 1];
     }
     return self;
 }
@@ -226,6 +252,10 @@
     if ([RimeWrapper isSessionAlive:rimeSessionId_]) {
         [RimeWrapper destroySession:rimeSessionId_];
     }
+}
+
+- (RimeSessionId)rimeSessionId {
+    return rimeSessionId_;
 }
 
 #pragma mark Menu item actions

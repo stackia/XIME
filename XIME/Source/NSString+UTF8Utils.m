@@ -30,11 +30,19 @@ static const unsigned char vUTF8codeUnitNum[256] = { // Lookup table for code un
 
 @implementation NSString (UTF8Utils)
 
-+ (int)NSStringPosFromUTF8Pos:(int)vUTF8Pos string:(const char *)string {
++ (int)NSStringPosFromUTF8Pos:(int)vUTF8Pos string:(const char *)string strictMode:(BOOL)strictMode {
     if (!string) {
         return 0;
     }
     const unsigned char *uString = (const unsigned char *)string;
+    size_t len = strlen(string);
+    if (vUTF8Pos >= len) {
+        if (strictMode) {
+            vUTF8Pos = (int)len - 1;
+        } else {
+            vUTF8Pos = (int)len;
+        }
+    }
     int pos = -1;
     for (int i = 0; i <= vUTF8Pos; ++i) {
         pos += vUTF8codeUnitNum[uString[i]];

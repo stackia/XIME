@@ -8,10 +8,13 @@
 
 #import "RimeWrapper.h"
 #import "CandidateWindowController.h"
+#include "InputController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, RimeNotificationDelegate>
 
-@property (nonatomic, strong) CandidateWindowController *candidateWindowController;
 @property (weak) IBOutlet NSMenu *mainMenu;
+
+@property (strong) CandidateWindowController *candidateWindowController;
+@property (weak) InputController *currentInputController; // Keeps most recently active input controller
 
 @end

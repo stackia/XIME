@@ -13,5 +13,7 @@
 
 - (void)menuActionRedeploy:(id)sender;
 - (void)menuActionShowPreferences:(id)sender;
+- (RimeSessionId)rimeSessionId;
+- (void)syncWithRime;
 
 @end

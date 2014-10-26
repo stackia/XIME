@@ -303,9 +303,9 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
         }
         [xMenu setCandidates:xCandidates];
 
-        [xComp setCursorPosition:[NSString NSStringPosFromUTF8Pos:ctx.composition.cursor_pos string:ctx.composition.preedit]];
-        [xComp setSelectionStart:[NSString NSStringPosFromUTF8Pos:ctx.composition.sel_start string:ctx.composition.preedit]];
-        [xComp setSelectionEnd: [NSString NSStringPosFromUTF8Pos:ctx.composition.sel_end string:ctx.composition.preedit]];
+        [xComp setCursorPosition:[NSString NSStringPosFromUTF8Pos:ctx.composition.cursor_pos string:ctx.composition.preedit strictMode:NO]];
+        [xComp setSelectionStart:[NSString NSStringPosFromUTF8Pos:ctx.composition.sel_start string:ctx.composition.preedit strictMode:YES]];
+        [xComp setSelectionEnd: [NSString NSStringPosFromUTF8Pos:ctx.composition.sel_end string:ctx.composition.preedit strictMode:YES]];
         if (ctx.composition.preedit) {
             [xComp setPreeditedText:[NSString stringWithUTF8String:ctx.composition.preedit]];
         } else {
@@ -314,6 +314,10 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
         RimeFreeContext(&ctx);
     }
     return xCtx;
+}
+
++ (BOOL)getOptionStateForSession:(RimeSessionId)sessionId optionName:(NSString *)optionName {
+    return RimeGetOption(sessionId, [optionName UTF8String]);
 }
 
 @end

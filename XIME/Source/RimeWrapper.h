@@ -102,4 +102,7 @@ typedef enum {
 /// Get the Rime context for a session
 + (XRimeContext *)contextForSession:(RimeSessionId)sessiodId;
 
+/// Get option state for a session
++ (BOOL)getOptionStateForSession:(RimeSessionId)sessionId optionName:(NSString *)optionName;
+
 @end

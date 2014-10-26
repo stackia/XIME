@@ -17,6 +17,7 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
     
+    [[self window] setLevel:NSScreenSaverWindowLevel];
     [[self window] setOpaque:NO];
     [[self window] setBackgroundColor:[NSColor clearColor]];
 }
@@ -81,10 +82,6 @@
 
 - (void)hideWindow:(id)sender {
     [[self window] orderOut:sender];
-}
-
-- (void)setWindowLevel:(CGWindowLevel)level {
-    [[self window] setLevel:level];
 }
 
 @end

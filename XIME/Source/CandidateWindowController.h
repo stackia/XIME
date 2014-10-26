@@ -21,7 +21,4 @@
 /// Force to hide candidate window
 - (void)hideWindow:(id)sender;
 
-/// Set candidate window level
-- (void)setWindowLevel:(CGWindowLevel)level;
-
 @end

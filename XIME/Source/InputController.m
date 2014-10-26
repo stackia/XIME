@@ -228,11 +228,6 @@
 - (id)initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)inputClient {
     if (self = [super initWithServer:server delegate:delegate client:inputClient]) {
         rimeSessionId_ = [RimeWrapper createSession]; // Try to create Rime session
-        
-        // Set candidate window level
-        AppDelegate *appDelegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
-        CandidateWindowController *candidateWindowController = [appDelegate candidateWindowController];
-        [candidateWindowController setWindowLevel:[[self client] windowLevel] + 1];
     }
     return self;
 }

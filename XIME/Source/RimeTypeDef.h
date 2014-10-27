@@ -23,6 +23,7 @@
  */
 
 typedef enum : NSUInteger {
+    XRimeOptionUndefined,
     XRimeOptionASCIIMode,
     XRimeOptionFullShape,
     XRimeOptionASCIIPunct,

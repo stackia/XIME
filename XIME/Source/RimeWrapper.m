@@ -46,7 +46,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
         
     } else if (!strcmp(message_type, "option") && [notificationDelegate_ respondsToSelector:@selector(onOptionChangedWithOption:value:)]) { // Option change
         
-        XRimeOption option;
+        XRimeOption option = XRimeOptionUndefined;
         BOOL value = (message_value[0] != '!');;
         
         if (!strcmp(message_value, "ascii_mode") || !strcmp(message_value, "!ascii_mode")) {
@@ -150,7 +150,7 @@ void notificationHandler(void* context_object, RimeSessionId session_id, const c
 }
 
 + (int)rimeKeyCodeForKeyChar:(char)keyChar {
-    int ret;
+    int ret = 0;
     if (keyChar >= 0x20 && keyChar <= 0x7e) {
         ret = keyChar;
     }
